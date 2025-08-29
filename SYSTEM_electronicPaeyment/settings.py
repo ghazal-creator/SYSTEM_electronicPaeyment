@@ -114,8 +114,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # إعدادات أمان إضافية لل production
 if not DEBUG:
-    SECURE_SSL_REDIRECT = True
+    SECURE_SSL_REDIRECT = False
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
+    CSRF_TRUSTED_ORIGINS = ['https://systemelectronicpaeyment-production.up.railway.app']
