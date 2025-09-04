@@ -20,10 +20,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 
+
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('app/', include('APPLI.urls')),
-    path('', RedirectView.as_view(url='/admin/')),  
+    
+    
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
 ]
 
 # servir archivos estáticos en desarrollo y producción
