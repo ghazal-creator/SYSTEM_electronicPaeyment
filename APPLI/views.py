@@ -16,6 +16,10 @@ from datetime import timedelta
 from django.views.decorators.http import require_http_methods
 from django.db.models.functions import TruncMonth
 import secrets
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.shortcuts import redirect
+
 
 ROOT_URL = "http://127.0.0.1:8000/"
 @csrf_exempt
@@ -1171,3 +1175,41 @@ def update_user_preferences(request):
         return JsonResponse({'status':'error','message':'Invalid currency code'})
     except Exception as e:
         return JsonResponse({'status':'error','message':str(e)})
+
+def home_page(request):
+    """الصفحة الرئيسية للتطبيق"""
+    html_content = """
+    <!DOCTYPE html>
+    <html dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <title>نظام الدفع الإلكتروني</title>
+        <style>
+            body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+            h1 { color: #2c3e50; }
+            .button { 
+                display: inline-block; 
+                padding: 12px 24px; 
+                margin: 10px; 
+                background: #3498db; 
+                color: white; 
+                text-decoration: none; 
+                border-radius: 5px; 
+                font-weight: bold; 
+            }
+            .button:hover { background: #2980b9; }
+        </style>
+    </head>
+    <body>
+        <h1>مرحباً بك في نظام الدفع الإلكتروني</h1>
+        <p>اختر الواجهة التي تريد الوصول إليها:</p>
+        
+        <div>
+            <a href="/admin/" class="button">لوحة الإدارة (Django Admin)</a>
+            <a href="/app/" class="button">التطبيق الرئيسي</a>
+            <a href="/swagger/" class="button">Swagger API Documentation</a>
+        </div>
+    </body>
+    </html>
+    """
+    return HttpResponse(html_content)
